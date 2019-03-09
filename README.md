@@ -1,5 +1,5 @@
 # pydomoticz
-Python class to communicate with domoticz
+Python class to communicate with domoticz using the API. Can work with and without the basic authentication. Currently has support to read and set lights (dimmable) on KaKu, MyLight and ZWave.
 
 Example:
 ```python
