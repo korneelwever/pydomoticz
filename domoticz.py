@@ -5,7 +5,7 @@
     https://www.domoticz.com/wiki/Domoticz_API/JSON_URL%27s
     Author: Korneel Wever / dippety.com
 '''
-import urllib, json, math
+import urllib, json, math, datetime
 
 class Domoticz:
     def __init__(self, newhost):
@@ -64,3 +64,10 @@ class Domoticz:
         # can not use updateDevice as the param is different.
         data = "type=command&param=switchlight&idx="+str(idx)+"&switchcmd=Set Level&level="+str(step)
         return self.doJson(data)
+
+    def isDaytime(self):
+        sun = self.getSunRiseSet()
+        now = datetime.datetime.now()
+        sunset = now.replace(hour=int(sun['Sunset'][:2]), minute=int(sun['Sunset'][3:5]), second=0, microsecond=0)
+        sunrise = now.replace(hour=int(sun['Sunrise'][:2]), minute=int(sun['Sunrise'][3:5]), second=0, microsecond=0)
+        return now > sunset and now < sunrise
